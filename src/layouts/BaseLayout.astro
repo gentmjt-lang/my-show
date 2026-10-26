@@ -1,0 +1,61 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { BRAND, type Locale } from '../consts';
+import { getDictionary, localizePath } from '../i18n';
+
+interface Props {
+	locale: Locale;
+	title: string;
+	description: string;
+	ogImage?: string;
+	canonicalPath?: string;
+}
+
+const { locale, title, description, ogImage, canonicalPath } = Astro.props;
+const t = getDictionary(locale);
+const brand = BRAND[locale];
+const pageTitle = `${title} · ${brand}`;
+const path = canonicalPath ?? Astro.url.pathname;
+const canonical = new URL(path, Astro.site);
+const altLocale = locale === 'zh' ? 'en' : 'zh';
+const altPath = path.replace(`/${locale}`, `/${altLocale}`) || `/${altLocale}/`;
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" hreflang={locale} href={canonical} />
+		<link rel="alternate" hreflang={altLocale} href={new URL(altPath, Astro.site)} />
+		<link rel="alternate" hreflang="x-default" href={new URL(localizePath('zh'), Astro.site)} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content={locale === 'zh' ? 'zh_CN' : 'en_US'} />
+		{ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">{t.nav.skip}</a>
+		<div class="site-shell">
+			<Header locale={locale} />
+			<main id="main" class="site-main">
+				<slot />
+			</main>
+			<Footer locale={locale} />
+		</div>
+	</body>
+</html>

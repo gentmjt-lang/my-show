@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT, LOCALES, type Locale } from '../../consts';
+import { getDictionary } from '../../i18n';
+
+export function getStaticPaths() {
+	return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.params.lang as Locale;
+const t = getDictionary(locale);
+---
+
+<BaseLayout locale={locale} title={t.meta.contactTitle} description={t.meta.contactDesc}>
+	<header>
+		<p class="meta">{t.contact.title}</p>
+		<h1 class="page-title">{t.contact.title}</h1>
+		<p class="lede">{t.contact.intro}</p>
+	</header>
+	<hr class="rule" />
+	<p class="contact-note">{t.contact.note}</p>
+	<div class="contact-panel">
+		<div class="contact-item">
+			<p class="contact-item__label">{t.contact.email}</p>
+			<p class="contact-item__value">
+				<a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+			</p>
+		</div>
+		<div class="contact-item">
+			<p class="contact-item__label">{t.contact.wechat}</p>
+			<p class="contact-item__value">{CONTACT.wechat}</p>
+		</div>
+	</div>
+	<p style="margin-top: 2rem;">
+		<a class="btn btn-primary" href={`mailto:${CONTACT.email}`}>{t.contact.mailto}</a>
+	</p>
+</BaseLayout>

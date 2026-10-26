@@ -1,0 +1,61 @@
+---
+slug: folio-pilot
+title: Folio Pilot — this site as the meta-project
+subtitle: Validating the content model with a deployable bilingual static site
+summary: "To prove a client-facing case dossier, I built this site solo: Astro + MDX + Cloudflare Workers static assets, with reusable bilingual routes and a six-section case structure."
+cover: /images/covers/folio-pilot.svg
+role: Solo
+client: Self
+industry: Portfolio product
+year: 2026
+duration: Ongoing
+team: "1"
+contributions:
+  - Product plan and information architecture
+  - Celadon Dossier direction and implementation
+  - Content model and deploy pipeline
+tags:
+  - Portfolio
+  - i18n
+  - Cloudflare
+featured: true
+order: 4
+outcomeHighlights:
+  - Bilingual static site deployable
+  - Reusable case content model
+  - No CMS — code is the content
+status: prototype
+---
+
+## Result first
+
+The site you are reading is the deliverable: Chinese default, full English parity, cases maintained as MDX.
+
+<figure class="figure-matte">
+  <img src="/images/covers/folio-structure.svg" alt="" width="1200" height="675" />
+  <figcaption>Site structure placeholder</figcaption>
+</figure>
+
+## Challenge
+
+A hiring résumé site does not serve inbound clients — they need problem, scope, and outcomes. We also needed no CMS overhead and a simple Cloudflare deploy path.
+
+## Approach
+
+1. **Code as content**: Content Collections + Zod; missing fields fail the build.  
+2. **Prefixed default locale**: Symmetric `/zh` and `/en` — no implicit root locale.  
+3. **Design constraints in the brief**: Hero budget; ban generic AI template palettes.
+
+## Solution
+
+Astro static → `dist/` → Wrangler `assets.directory`. UI strings in `src/i18n`; cases in `src/content/cases/{zh,en}`.
+
+## Impact
+
+Success means previewable, mock-swappable, deployable. After real cases replace mocks: OG images and analytics.
+
+## Learnings
+
+- Narrative structure closes conversations more than visual skins.  
+- Contact placeholders must be obvious so launch does not forget them.  
+- Next: real covers, next-case links, light Work filters.

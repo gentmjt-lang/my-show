@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 686" role="img" aria-label="">
+  <rect width="1600" height="686" fill="#0f1418"/>
+  <rect x="0" y="0" width="420" height="686" fill="#1a2c2a"/>
+  <g fill="#3d6b63" opacity="0.85">
+    <rect x="48" y="80" width="140" height="10"/>
+    <rect x="48" y="120" width="220" height="8" opacity="0.5"/>
+    <rect x="48" y="160" width="180" height="8" opacity="0.4"/>
+    <rect x="48" y="200" width="200" height="8" opacity="0.35"/>
+    <rect x="48" y="280" width="120" height="36"/>
+  </g>
+  <g fill="none" stroke="#5c6b76" stroke-width="1">
+    <rect x="520" y="100" width="980" height="120"/>
+    <rect x="520" y="250" width="460" height="280"/>
+    <rect x="1020" y="250" width="480" height="280"/>
+  </g>
+  <circle cx="1400" cy="140" r="28" fill="#3d6b63" opacity="0.7"/>
+  <text x="540" y="170" fill="#e6ecf0" font-family="Georgia, serif" font-size="36">Lantern Ops</text>
+</svg>

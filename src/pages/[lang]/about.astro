@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { LOCALES, type Locale } from '../../consts';
+import { getDictionary, localizePath } from '../../i18n';
+
+export function getStaticPaths() {
+	return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.params.lang as Locale;
+const t = getDictionary(locale);
+---
+
+<BaseLayout locale={locale} title={t.meta.aboutTitle} description={t.meta.aboutDesc}>
+	<header>
+		<p class="meta">{t.about.title}</p>
+		<h1 class="page-title">{t.about.headline}</h1>
+	</header>
+	<hr class="rule" />
+	<div class="stack">
+		<p>{t.about.intro}</p>
+		<section>
+			<h2>{t.about.capabilitiesTitle}</h2>
+			<ul>
+				{t.about.capabilities.map((item) => <li>{item}</li>)}
+			</ul>
+		</section>
+		<section>
+			<h2>{t.about.collabTitle}</h2>
+			<p>{t.about.collab}</p>
+		</section>
+		<section>
+			<h2>{t.about.proofTitle}</h2>
+			<p>{t.about.proof}</p>
+		</section>
+		<p>
+			<a class="btn btn-primary" href={localizePath(locale, 'contact')}>{t.about.cta}</a>
+		</p>
+	</div>
+</BaseLayout>

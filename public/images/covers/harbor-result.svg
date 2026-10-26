@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img">
+  <rect width="1200" height="675" fill="#0f1418"/>
+  <rect x="80" y="80" width="1040" height="515" fill="none" stroke="#3d6b63" stroke-width="1" opacity="0.5"/>
+  <text x="600" y="340" text-anchor="middle" fill="#c5d0d8" font-family="system-ui,sans-serif" font-size="22" letter-spacing="3" opacity="0.8">harbor-result</text>
+</svg>

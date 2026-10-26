@@ -1,0 +1,50 @@
+---
+import { BRAND, type Locale } from '../consts';
+import { getDictionary, localizePath, switchLocalePath } from '../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale);
+const pathname = Astro.url.pathname;
+
+const links = [
+	{ href: localizePath(locale, 'work'), label: t.nav.work, match: '/work' },
+	{ href: localizePath(locale, 'about'), label: t.nav.about, match: '/about' },
+	{ href: localizePath(locale, 'contact'), label: t.nav.contact, match: '/contact' },
+];
+
+function isCurrent(match: string) {
+	return pathname.includes(`/${locale}${match}`);
+}
+---
+
+<header class="site-header">
+	<div class="site-header__inner">
+		<a class="brand" href={localizePath(locale)}>{BRAND[locale]}</a>
+		<nav class="nav" aria-label="Primary">
+			{
+				links.map((link) => (
+					<a href={link.href} aria-current={isCurrent(link.match) ? 'page' : undefined}>
+						{link.label}
+					</a>
+				))
+			}
+		</nav>
+		<div class="lang-switch" aria-label="Language">
+			<a
+				href={switchLocalePath(locale, 'zh', pathname)}
+				hreflang="zh"
+				aria-current={locale === 'zh' ? 'true' : undefined}>zh</a
+			>
+			<span class="lang-switch__sep" aria-hidden="true">/</span>
+			<a
+				href={switchLocalePath(locale, 'en', pathname)}
+				hreflang="en"
+				aria-current={locale === 'en' ? 'true' : undefined}>en</a
+			>
+		</div>
+	</div>
+</header>
