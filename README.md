@@ -37,6 +37,12 @@ npm run deploy
 
 `wrangler.jsonc` 将 `assets.directory` 指向 `./dist`。需已登录 Cloudflare（`npx wrangler login`）或配置好 API token。
 
+无登录时可试用临时预览（有 bot challenge，需 claim）：
+
+```bash
+npm run build && npx wrangler deploy --temporary
+```
+
 ## 双语路由
 
 | 路径 | 说明 |
