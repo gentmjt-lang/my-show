@@ -1,0 +1,66 @@
+---
+slug: harbor-checkout
+title: 港湾结账改版 — 缩短 B2B 结账路径
+subtitle: 为中型 SaaS 把五步结账压成三步
+summary: "港湾（Harbor）结账漏斗过长，企业采购中途流失。我主导体验与前端落地，将步骤从 5 收至 3，mock 结账完成率 +18%。"
+cover: /images/covers/harbor-checkout.svg
+role: Product Design Lead
+client: Harbor（mock）
+industry: B2B SaaS
+year: 2024
+duration: 8 周
+team: 1 设计 · 2 工程 · 1 PM
+contributions:
+  - 结账信息架构与步骤合并方案
+  - 关键交互规范与关键态设计
+  - 与工程对齐组件与埋点口径
+tags:
+  - B2B
+  - 转化
+  - SaaS
+featured: true
+order: 1
+outcomeHighlights:
+  - 结账完成率 +18%（mock）
+  - 步骤从 5 → 3
+  - 企业采购「返回修改」路径缩短一半
+status: shipped
+---
+
+## 结果先行
+
+成品主界面以「订单摘要常驻 + 身份与支付同屏」为核心，采购方无需在多页间来回跳转。
+
+<figure class="figure-matte">
+  <img src="/images/covers/harbor-result.svg" alt="" width="1200" height="675" />
+  <figcaption>结账主屏占位 — 摘要侧栏与主表单同屏</figcaption>
+</figure>
+
+## 挑战
+
+Harbor 的目标客户是中型团队采购负责人。原流程把地址、税号、席位、发票、支付拆成五页，移动端尤其容易中途放弃。问题值得解，因为流失集中在「已选方案但未付款」——产品本身获客并不弱。
+
+## 方法
+
+1. **合并 vs 向导**：选项是保持分步但加进度条，或合并为少屏。取舍后选择合并：采购决策是一次性核对，不是探索式任务。  
+2. **摘要常驻**：把订单金额与席位变更固定在侧栏，避免返回上一页改数量。  
+3. **错误前置**：税号与发票字段在失焦时校验，而不是提交后整页报错。
+
+## 方案
+
+交付物包括新信息架构、关键组件状态（加载 / 校验 / 支付中）、以及前端实现对照稿。工程侧复用既有支付网关，只改编排层。
+
+<figure class="figure-matte">
+  <img src="/images/covers/harbor-flow.svg" alt="" width="1200" height="675" />
+  <figcaption>流程对照占位 — 五步到三步</figcaption>
+</figure>
+
+## 影响
+
+上线四周后 mock 数据显示完成率 +18%。若无对照实验，会以「进入结账 → 支付成功」漏斗与会话时长作为主指标，辅以客服工单中「找不到发票字段」类反馈量。
+
+## 反思
+
+- 企业结账的信任来自清晰摘要，而不是更多步骤。  
+- 与财务合规字段冲突时，应更早拉法务进评审。  
+- 下一步会把移动端摘要改为底部抽屉，避免挤压主表单。

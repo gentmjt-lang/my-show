@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseRow from '../../components/CaseRow.astro';
+import { LOCALES, BRAND, type Locale } from '../../consts';
+import { getDictionary, localizePath } from '../../i18n';
+import { getFeaturedCases } from '../../lib/cases';
+
+export function getStaticPaths() {
+	return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.params.lang as Locale;
+const t = getDictionary(locale);
+const featured = await getFeaturedCases(locale);
+const heroCase = featured[0];
+---
+
+<BaseLayout locale={locale} title={t.meta.homeTitle} description={t.meta.homeDesc}>
+	<section class="hero" aria-labelledby="hero-brand">
+		<div class="hero__copy">
+			<p class="hero__tag meta reveal-brand">{t.home.tagline}</p>
+			<h1 id="hero-brand" class="hero__brand reveal-brand">{BRAND[locale]}</h1>
+			<p class="hero__headline reveal-headline">{t.home.headline}</p>
+			<p class="hero__support lede reveal-support">{t.home.support}</p>
+			<div class="cta-row reveal-cta">
+				<a class="btn btn-primary" href={localizePath(locale, 'work')}>{t.home.ctaWork}</a>
+				<a class="btn btn-ghost" href={localizePath(locale, 'contact')}>{t.home.ctaContact}</a>
+			</div>
+		</div>
+		{
+			heroCase && (
+				<div class="hero__visual">
+					<img src={heroCase.data.cover} alt="" width="1600" height="686" />
+					<p class="hero__visual-caption">{heroCase.data.title}</p>
+				</div>
+			)
+		}
+	</section>
+
+	<section aria-labelledby="featured-heading">
+		<div class="section-head">
+			<h2 id="featured-heading">{t.home.featured}</h2>
+			<a href={localizePath(locale, 'work')}>{t.home.viewAll}</a>
+		</div>
+		<div class="case-list">
+			{featured.map((entry) => <CaseRow locale={locale} entry={entry} />)}
+		</div>
+	</section>
+</BaseLayout>

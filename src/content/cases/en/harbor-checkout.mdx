@@ -1,0 +1,66 @@
+---
+slug: harbor-checkout
+title: Harbor Checkout — shorten the B2B payment path
+subtitle: Collapsing a five-step SaaS checkout into three
+summary: "Harbor’s checkout funnel was too long and mid-market buyers dropped off. I led experience and frontend delivery, cutting steps 5→3 and lifting mock completion +18%."
+cover: /images/covers/harbor-checkout.svg
+role: Product Design Lead
+client: Harbor (mock)
+industry: B2B SaaS
+year: 2024
+duration: 8 weeks
+team: 1 designer · 2 eng · 1 PM
+contributions:
+  - Checkout information architecture and step consolidation
+  - Key interaction patterns and critical states
+  - Alignment with engineering on components and analytics
+tags:
+  - B2B
+  - Conversion
+  - SaaS
+featured: true
+order: 1
+outcomeHighlights:
+  - Checkout completion +18% (mock)
+  - Steps reduced from 5 → 3
+  - “Edit order” path for buyers cut roughly in half
+status: shipped
+---
+
+## Result first
+
+The shipped UI keeps order summary persistent beside identity and payment — buyers no longer bounce across five pages to reconcile totals.
+
+<figure class="figure-matte">
+  <img src="/images/covers/harbor-result.svg" alt="" width="1200" height="675" />
+  <figcaption>Primary checkout screen placeholder — summary rail + form</figcaption>
+</figure>
+
+## Challenge
+
+Harbor’s buyers are mid-market procurement leads. Address, tax ID, seats, invoicing, and payment lived on five separate screens; mobile drop-off was worst. Worth solving because churn clustered after plan selection — acquisition itself was healthy.
+
+## Approach
+
+1. **Merge vs wizard**: Keep steps with a progress bar, or merge screens. We merged — procurement is a verification task, not exploration.  
+2. **Persistent summary**: Seat and amount changes stay visible so buyers don’t backtrack.  
+3. **Validate early**: Tax and invoice fields check on blur, not only on submit.
+
+## Solution
+
+Deliverables: new IA, critical component states (loading / validation / paying), and frontend implementation against the specs. The payment gateway stayed; only orchestration changed.
+
+<figure class="figure-matte">
+  <img src="/images/covers/harbor-flow.svg" alt="" width="1200" height="675" />
+  <figcaption>Flow comparison placeholder — five steps to three</figcaption>
+</figure>
+
+## Impact
+
+Mock metrics four weeks post-launch showed +18% completion. Without an A/B harness we would still track checkout→paid funnel and session length, plus support tickets about “missing invoice fields.”
+
+## Learnings
+
+- B2B trust comes from a clear summary, not more steps.  
+- Pull legal in earlier when compliance fields conflict with UX.  
+- Next: a bottom-sheet summary on mobile so the form stays usable.

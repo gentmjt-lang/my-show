@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CaseRow from '../../../components/CaseRow.astro';
+import { LOCALES, type Locale } from '../../../consts';
+import { getDictionary } from '../../../i18n';
+import { getCasesForLocale } from '../../../lib/cases';
+
+export function getStaticPaths() {
+	return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.params.lang as Locale;
+const t = getDictionary(locale);
+const cases = await getCasesForLocale(locale);
+---
+
+<BaseLayout locale={locale} title={t.meta.workTitle} description={t.meta.workDesc}>
+	<header>
+		<p class="meta">{t.work.all}</p>
+		<h1 class="page-title">{t.work.title}</h1>
+		<p class="lede">{t.work.intro}</p>
+	</header>
+	<hr class="rule" />
+	{
+		cases.length === 0 ? (
+			<p>{t.work.empty}</p>
+		) : (
+			<div class="case-list">
+				{cases.map((entry) => (
+					<CaseRow locale={locale} entry={entry} />
+				))}
+			</div>
+		)
+	}
+</BaseLayout>

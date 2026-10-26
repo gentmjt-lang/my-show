@@ -1,0 +1,137 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { LOCALES, type Locale } from '../../../consts';
+import { getDictionary, localizePath } from '../../../i18n';
+import { getCasesForLocale, getCaseBySlug } from '../../../lib/cases';
+
+export async function getStaticPaths() {
+	const paths = [];
+	for (const lang of LOCALES) {
+		const cases = await getCasesForLocale(lang);
+		for (const entry of cases) {
+			paths.push({
+				params: { lang, slug: entry.data.slug },
+			});
+		}
+	}
+	return paths;
+}
+
+const locale = Astro.params.lang as Locale;
+const slug = Astro.params.slug as string;
+const t = getDictionary(locale);
+const entry = await getCaseBySlug(locale, slug);
+
+if (!entry) {
+	return Astro.redirect(localizePath(locale, 'work'));
+}
+
+const { Content } = await render(entry);
+const d = entry.data;
+
+const statusLabel =
+	d.status === 'shipped'
+		? t.case.statusShipped
+		: d.status === 'prototype'
+			? t.case.statusPrototype
+			: t.case.statusConcept;
+---
+
+<BaseLayout
+	locale={locale}
+	title={d.title}
+	description={d.summary}
+	ogImage={d.cover}
+>
+	<article>
+		<div class="case-cover">
+			<img src={d.cover} alt="" width="1600" height="686" />
+		</div>
+
+		<header class="case-title-block case-section">
+			<p class="meta">{d.year} · {d.tags.join(' · ')}</p>
+			<h1>{d.title}</h1>
+			{d.subtitle && <p class="lede">{d.subtitle}</p>}
+			<p class="lede">{d.summary}</p>
+		</header>
+
+		<dl class="case-meta-grid case-section">
+			<div>
+				<dt>{t.case.role}</dt>
+				<dd>{d.role}</dd>
+			</div>
+			{
+				d.client && (
+					<div>
+						<dt>{t.case.client}</dt>
+						<dd>{d.client}</dd>
+					</div>
+				)
+			}
+			{
+				d.industry && (
+					<div>
+						<dt>{t.case.industry}</dt>
+						<dd>{d.industry}</dd>
+					</div>
+				)
+			}
+			<div>
+				<dt>{t.case.year}</dt>
+				<dd>{d.year}</dd>
+			</div>
+			<div>
+				<dt>{t.case.duration}</dt>
+				<dd>{d.duration}</dd>
+			</div>
+			{
+				d.team && (
+					<div>
+						<dt>{t.case.team}</dt>
+						<dd>{d.team}</dd>
+					</div>
+				)
+			}
+			<div>
+				<dt>{t.case.status}</dt>
+				<dd>{statusLabel}</dd>
+			</div>
+		</dl>
+
+		<section class="case-section" aria-labelledby="outcomes-heading">
+			<h2 id="outcomes-heading" class="display" style="font-size:1.25rem;margin:0 0 1rem;">
+				{t.case.outcomes}
+			</h2>
+			<ul class="outcome-list">
+				{d.outcomeHighlights.map((item) => <li>{item}</li>)}
+			</ul>
+		</section>
+
+		<section class="case-section" aria-labelledby="contrib-heading" style="margin-top:2rem;">
+			<h2 id="contrib-heading" class="display" style="font-size:1.25rem;margin:0 0 1rem;">
+				{t.case.contributions}
+			</h2>
+			<ul class="contrib-list">
+				{d.contributions.map((item) => <li>{item}</li>)}
+			</ul>
+		</section>
+
+		<div class="prose case-section">
+			<Content />
+		</div>
+
+		{
+			d.links?.live && (
+				<p class="case-section">
+					<a href={d.links.live} rel="noopener noreferrer">{t.case.live}</a>
+				</p>
+			)
+		}
+
+		<nav class="case-nav" aria-label="Case navigation">
+			<a href={localizePath(locale, 'work')}>{t.case.back}</a>
+			<a href={localizePath(locale, 'work')}>{t.case.more}</a>
+		</nav>
+	</article>
+</BaseLayout>

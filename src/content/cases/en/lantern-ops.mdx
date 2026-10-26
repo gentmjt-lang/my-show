@@ -1,0 +1,61 @@
+---
+slug: lantern-ops
+title: Lantern Ops Console — internal tickets 0→1
+subtitle: A console ops can actually staff a shift with
+summary: "Lantern ran tickets through spreadsheets and chat. I shipped a full-stack ops console; mock median handle time dropped 35%."
+cover: /images/covers/lantern-ops.svg
+role: Full-stack delivery
+client: Lantern (mock · internal)
+industry: Ops tooling
+year: 2025
+duration: 3 months
+team: Solo + 1 part-time backend advisor
+contributions:
+  - Domain model (ticket / queue / SLA) and discovery
+  - Full-stack implementation and auth
+  - On-call views and lightweight audit log
+tags:
+  - Internal tools
+  - 0→1
+  - Full-stack
+featured: true
+order: 2
+outcomeHighlights:
+  - Median handle time −35% (mock)
+  - Handoffs moved from chat history to queue state
+  - First usable build in six weeks
+status: shipped
+---
+
+## Result first
+
+Ops land on “today’s queue”: SLA coloring, claim / transfer, less hunting through sheets.
+
+<figure class="figure-matte">
+  <img src="/images/covers/lantern-board.svg" alt="" width="1200" height="675" />
+  <figcaption>Queue board placeholder</figcaption>
+</figure>
+
+## Challenge
+
+Tickets lived in sheets and group chat; handoffs were verbal. The job wasn’t “another CRM” — it was productizing the shift: who owns it, where it’s stuck, when to escalate.
+
+## Approach
+
+1. **Narrow domain**: Tickets, queues, SLAs only — no analytics suite in v1.  
+2. **Claim over assign**: Night staffing floats; claiming fits better than static assignment.  
+3. **Light audit**: Status transitions only, not full replay.
+
+## Solution
+
+Static frontend + Worker API + KV/D1 placeholder storage. Dense lists first; detail drawer for notes and timeline.
+
+## Impact
+
+Mock comparison showed −35% handle time. Real metrics: touches per ticket, breach rate, and whether “can’t find context” complaints drop at handoff.
+
+## Learnings
+
+- Internal tools win on shift smoothness, not polish.  
+- Analytics too early kills 0→1.  
+- Next: keyboard shortcuts and bulk actions.

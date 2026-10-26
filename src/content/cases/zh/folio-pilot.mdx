@@ -1,0 +1,61 @@
+---
+slug: folio-pilot
+title: 卷宗试点 — 本站元项目
+subtitle: 用可部署的双语静态站验证内容模型
+summary: "为验证「客户向案例卷宗」产品形态，我单独搭建本站：Astro + MDX + Cloudflare Workers 静态资源，双语路由与案例六段结构可复用。"
+cover: /images/covers/folio-pilot.svg
+role: Solo
+client: 自研
+industry: 作品集产品
+year: 2026
+duration: 进行中
+team: "1"
+contributions:
+  - 产品方案与信息架构
+  - 青墨卷宗设计方向与实现
+  - 内容模型与部署流水线
+tags:
+  - 作品集
+  - i18n
+  - Cloudflare
+featured: true
+order: 4
+outcomeHighlights:
+  - 双语静态站可部署
+  - 案例内容模型可复用
+  - 无 CMS，代码即内容
+status: prototype
+---
+
+## 结果先行
+
+你正在阅读的站点即交付物：默认中文、完整英文对照，案例以 MDX 维护。
+
+<figure class="figure-matte">
+  <img src="/images/covers/folio-structure.svg" alt="" width="1200" height="675" />
+  <figcaption>站点结构占位</figcaption>
+</figure>
+
+## 挑战
+
+招聘向简历站无法服务询单客户——客户需要的是问题、边界与结果。同时要避免 CMS 运营成本，并在 Cloudflare 上保持部署简单。
+
+## 方法
+
+1. **代码即内容**：Content Collections + Zod，缺字段构建失败。  
+2. **默认语言带前缀**：`/zh` 与 `/en` 对称，避免隐式默认。  
+3. **设计约束写进方案**：首屏预算、禁用通用 AI 模板配色。
+
+## 方案
+
+Astro static → `dist/` → Wrangler `assets.directory`。UI 字符串在 `src/i18n`，案例在 `src/content/cases/{zh,en}`。
+
+## 影响
+
+成功标准是可预览、可替换 mock、可部署。真实客户案例置换后，再补 OG 图与分析。
+
+## 反思
+
+- 叙事结构比视觉皮肤更决定作品集是否「能谈单」。  
+- 占位联系方式必须显眼，避免上线遗忘。  
+- 下一步：真实封面、下一篇导航、轻量筛选。

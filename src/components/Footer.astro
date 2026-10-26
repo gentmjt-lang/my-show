@@ -1,0 +1,26 @@
+---
+import { BRAND, type Locale } from '../consts';
+import { getDictionary, localizePath, switchLocalePath } from '../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale);
+const pathname = Astro.url.pathname;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="site-footer__inner">
+		<p>{BRAND[locale]} · {t.footer.rights} · {year}</p>
+		<p>
+			<a href={localizePath(locale, 'contact')}>{t.footer.contact}</a>
+			{' · '}
+			<a href={switchLocalePath(locale, 'zh', pathname)} hreflang="zh">中文</a>
+			{' / '}
+			<a href={switchLocalePath(locale, 'en', pathname)} hreflang="en">EN</a>
+		</p>
+	</div>
+</footer>

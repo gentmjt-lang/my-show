@@ -1,0 +1,61 @@
+---
+slug: lantern-ops
+title: 灯笼运营台 — 内部工单从零到一
+subtitle: 为运营团队搭一套可值班的控制台
+summary: "灯笼团队靠表格与即时通讯处理工单，日均耗时过高。我以全栈交付搭建运营台，mock 日均处理时间 −35%。"
+cover: /images/covers/lantern-ops.svg
+role: 全栈交付
+client: Lantern（mock · 内部）
+industry: 运营工具
+year: 2025
+duration: 3 个月
+team: Solo + 1 兼职后端顾问
+contributions:
+  - 需求澄清与领域模型（工单 / 队列 / SLA）
+  - 前后端实现与鉴权
+  - 值班视图与基础审计日志
+tags:
+  - 内部工具
+  - 0→1
+  - 全栈
+featured: true
+order: 2
+outcomeHighlights:
+  - 日均处理工单时间 −35%（mock）
+  - 值班交接从聊天记录改为队列状态
+  - 首版六周可试用
+status: shipped
+---
+
+## 结果先行
+
+运营台默认进入「今日队列」：按 SLA 染色、支持认领与转交，减少在表格里翻找。
+
+<figure class="figure-matte">
+  <img src="/images/covers/lantern-board.svg" alt="" width="1200" height="675" />
+  <figcaption>队列看板占位</figcaption>
+</figure>
+
+## 挑战
+
+工单散落在表格与群聊，交接靠口头。问题不在「再做一个 CRM」，而在把值班节奏产品化——谁在处理、卡在哪、何时升级。
+
+## 方法
+
+1. **窄领域模型**：只做工单、队列、SLA 三种实体，拒绝一期上报表中心。  
+2. **认领制而非指派制**：夜班人手浮动，认领比静态指派更贴现实。  
+3. **审计轻量**：记录状态变更即可，不做完整操作回放。
+
+## 方案
+
+技术栈为静态前端 + Worker API + KV/D1 占位存储。界面以列表密度优先，详情抽屉承载备注与时间线。
+
+## 影响
+
+Mock 对比显示日均处理时间 −35%。真实衡量会看：每单触达次数、超时率、以及交接班时「找不到上下文」的口头反馈是否下降。
+
+## 反思
+
+- 内部工具的成功标准是值班顺不顺，不是视觉华丽。  
+- 过早做分析看板会拖垮 0→1。  
+- 下一步补键盘快捷键与批量操作。

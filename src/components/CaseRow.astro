@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../consts';
+import { localizePath } from '../i18n';
+
+interface Props {
+	locale: Locale;
+	entry: CollectionEntry<'cases'>;
+}
+
+const { locale, entry } = Astro.props;
+const { title, summary, cover, tags, year, role } = entry.data;
+const href = localizePath(locale, `work/${entry.data.slug}`);
+---
+
+<a class="case-row" href={href}>
+	<div class="case-row__media">
+		<img src={cover} alt="" loading="lazy" width="800" height="500" />
+	</div>
+	<div class="case-row__body">
+		<p class="case-row__meta meta">{year} · {role}</p>
+		<h3 class="case-row__title">{title}</h3>
+		<p class="case-row__summary">{summary}</p>
+		<ul class="case-row__tags">
+			{tags.map((tag) => <li>{tag}</li>)}
+		</ul>
+	</div>
+</a>
